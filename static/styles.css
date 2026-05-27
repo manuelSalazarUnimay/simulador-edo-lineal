@@ -360,7 +360,7 @@ td {
 
 .canvas-container {
     width: 100%;
-    min-height: 400px;
+    min-height: 600px; /*cambio*/
     background: white;
     border-radius: 1rem;
     border: 1px solid var(--blue-100);
