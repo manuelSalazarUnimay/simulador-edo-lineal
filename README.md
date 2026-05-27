@@ -90,7 +90,7 @@ Esto demuestra cómo la producción y el decaimiento terminan equilibrándose co
 - SymPy (matemática simbólica)
 - NumPy
 - Matplotlib
-- Modelado matemático con ecuaciones diferenciales
+- Flask 
 
 ---
 
