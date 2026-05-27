@@ -1,0 +1,6 @@
+# Python cache
+__pycache__/
+
+# Archivos del proyecto que no quiero versionar
+Ejercicio_aplicacion_ED.py
+resumen_sesion_simulador_edo.md

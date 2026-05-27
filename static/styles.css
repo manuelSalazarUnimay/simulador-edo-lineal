@@ -1,0 +1,368 @@
+/* Importar tipografía moderna */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+/* Variables de Color (Escala de Azules y Gradientes) */
+:root {
+    --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #eff6ff 50%, #e0e7ff 100%);
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-border: rgba(255, 255, 255, 1);
+    
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    
+    --blue-900: #1e3a8a;
+    --blue-600: #2563eb;
+    --blue-100: #dbeafe;
+    
+    --indigo-900: #312e81;
+    --indigo-600: #4f46e5;
+    --indigo-100: #e0e7ff;
+    
+    --btn-gradient: linear-gradient(to right, #2563eb, #4f46e5);
+    --btn-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+}
+
+/* Reset Básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 2rem 1rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem;
+}
+
+/* Glassmorphism Cards */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+}
+
+.card-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(219, 234, 254, 0.5);
+    padding-bottom: 1rem;
+}
+
+.gradient-text {
+    font-size: 2.2rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--blue-900), var(--indigo-600));
+    -webkit-background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--indigo-900);
+    opacity: 0.6;
+    font-weight: 600;
+}
+
+/* Formulario */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    align-items: flex-end;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.field label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(30, 58, 138, 0.8);
+}
+
+.field input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid var(--blue-100);
+    border-radius: 0.75rem;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.2s;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.field input:focus {
+    outline: none;
+    background: white;
+    border-color: var(--indigo-600);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+.btn-primary {
+    width: 100%;
+    background: var(--btn-gradient);
+    color: white;
+    border: none;
+    padding: 0.85rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: var(--btn-shadow);
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(79, 70, 229, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* Encabezados de Sección */
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e1b4b;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(219, 234, 254, 0.5);
+    padding-bottom: 1rem;
+}
+
+.marker {
+    width: 0.5rem;
+    height: 1.5rem;
+    border-radius: 1rem;
+}
+.marker.indigo { background-color: var(--indigo-600); }
+.marker.blue { background-color: var(--blue-600); }
+
+/* Cajas de Resultados (Gradientes) */
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.result-box {
+    position: relative;
+    overflow: hidden;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.result-box.gradient-blue { background: linear-gradient(to bottom right, #3b82f6, #1d4ed8); }
+.result-box.gradient-indigo { background: linear-gradient(to bottom right, #6366f1, #3730a3); }
+
+.result-box h3 {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.result-box p {
+    font-size: 2.25rem;
+    font-weight: 900;
+    position: relative;
+    z-index: 2;
+}
+
+.glow-effect {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    width: 6rem;
+    height: 6rem;
+    background: white;
+    opacity: 0.1;
+    border-radius: 50%;
+    filter: blur(20px);
+}
+.glow-effect.bottom { top: auto; bottom: -1rem; right: auto; left: -1rem; }
+
+/* Grid de Pasos Matemáticos (2 Columnas) */
+.steps-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+    .steps-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.step-card {
+    background: linear-gradient(to bottom right, #f8fafc, rgba(239, 246, 255, 0.3));
+    border: 1px solid rgba(219, 234, 254, 0.6);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.75rem;
+    transition: box-shadow 0.2s;
+}
+
+.step-card:hover { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+
+.step-card h4 {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--blue-900);
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin-bottom: 0.5rem;
+}
+
+/* Fórmulas y Cajas internas */
+.formula-box {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px dashed #bfdbfe;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+.formula-box.highlight-box {
+    background: rgba(239, 246, 255, 0.8);
+    border-color: #93c5fd;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #818cf8;
+    margin-bottom: 0.25rem;
+}
+
+.label-bold {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #1d4ed8;
+    margin-bottom: 0.25rem;
+}
+
+/* Cajas de KaTeX */
+.katex-display { margin: 0.5em 0 !important; overflow-x: auto; overflow-y: hidden; }
+
+/* Display de Evaluación (Paso 3) */
+.eval-display {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--blue-100);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    flex: 1; /* Ocupa el espacio restante */
+}
+
+.eval-item .value { font-size: 1.8rem; font-weight: 900; display: block; }
+.blue-text { color: var(--blue-600); }
+.indigo-text { color: var(--indigo-900); }
+
+.divider {
+    width: 2px;
+    height: 3rem;
+    background: linear-gradient(to bottom, transparent, var(--indigo-100), transparent);
+}
+
+/* Tabla Estilizada */
+.table-container {
+    overflow-x: auto;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 0.75rem;
+    border: 1px solid var(--blue-100);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+    flex: 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.875rem;
+}
+
+th {
+    background: rgba(239, 246, 255, 0.5);
+    color: var(--blue-900);
+    padding: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    border-bottom: 1px solid var(--blue-100);
+}
+
+td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.col-state { font-weight: 500; color: var(--text-muted); }
+.col-state.highlight { color: #4338ca; font-weight: 700; }
+.col-muted { color: #94a3b8; }
+
+.row-highlight {
+    background: rgba(224, 231, 255, 0.6);
+    transition: background 0.2s;
+}
+.row-highlight:hover { background: rgba(224, 231, 255, 0.9); }
+
+.col-highlight { color: var(--indigo-600); font-weight: 600; }
+.val-highlight { color: var(--indigo-900); font-weight: 700; }
+.pct-highlight { color: var(--blue-600); font-weight: 700; }
+.val-dark { color: #0f172a; font-weight: 700; }
+.col-success { color: #10b981; font-weight: 600; }
+
+/* Gráficos */
+.graphs-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .graphs-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.canvas-container {
+    width: 100%;
+    min-height: 400px;
+    background: white;
+    border-radius: 1rem;
+    border: 1px solid var(--blue-100);
+    overflow: hidden;
+}
