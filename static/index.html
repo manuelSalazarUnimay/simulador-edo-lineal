@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,129 +13,283 @@
     <link rel="stylesheet" href="js/library/katex.min.css">
     <script src="js/library/katex.min.js"></script>
 </head>
+
 <body class="bg-slate-50 text-slate-800 font-sans min-h-screen p-4 md:p-8">
 
-    <main class="max-w-7xl mx-auto grid gap-8">
+    <main class="max-w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-screen">
 
-        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/5 border border-slate-100">
-            <header class="mb-8 border-b border-slate-100 pb-4">
-                <h1 class="text-3xl font-bold text-blue-950 mb-2">Simulador de EDO Lineal</h1>
-                <p class="text-slate-500">Acumulación y decaimiento de radionúclidos</p>
-            </header>
+        <!-- IZQUIERDA - 40% ESTÁTICO -->
+        <aside class="lg:col-span-5 flex flex-col gap-6 sticky top-4 h-fit">
 
-            <form id="simulatorForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-end">
-                <div class="flex flex-col gap-2">
-                    <label for="produccion" class="font-semibold text-sm text-slate-700">Producción diaria (g/día)</label>
-                    <input type="number" id="produccion" step="0.1" value="2.0" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+            <!-- SECTION 1 -->
+            <section class="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/5 border border-slate-100">
+                <header class="mb-8 border-b border-slate-100 pb-4">
+                    <h1 class="text-3xl font-bold text-blue-950 mb-2">
+                        Simulador de EDO Lineal
+                    </h1>
+                    <p class="text-slate-500">
+                        Acumulación y decaimiento de radionúclidos
+                    </p>
+                </header>
+
+                <!-- TU FORM ORIGINAL EXACTO -->
+                <form id="simulatorForm" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-end">
+                    <div class="flex flex-col gap-2">
+                        <label for="produccion" class="font-semibold text-sm text-slate-700">Producción diaria
+                            (g/día)</label>
+                        <input type="number" id="produccion" step="0.1" value="2.0"
+                            class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="vidaMedia" class="font-semibold text-sm text-slate-700">Vida media (días)</label>
+                        <input type="number" id="vidaMedia" step="0.01" value="8.02"
+                            class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="cantidadInicial" class="font-semibold text-sm text-slate-700">Cantidad inicial Q(0)
+                            (gramos)</label>
+                        <input type="number" id="cantidadInicial" step="0.1" value="0"
+                            class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="diasSimulacion" class="font-semibold text-sm text-slate-700">Tiempo total simulación
+                            (días)</label>
+                        <input type="number" id="diasSimulacion" step="1" value="80"
+                            class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="diaEvaluacion" class="font-semibold text-sm text-slate-700">Día específico de
+                            evaluación</label>
+                        <input type="number" id="diaEvaluacion" step="0.1" value="24"
+                            class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-blue-500/30 transition-all active:scale-95">
+                        Ejecutar simulación
+                    </button>
+                </form>
+            </section>
+
+            <!-- SECTION 2 -->
+            <section class="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/5 border border-slate-100">
+                <h2 class="text-xl font-bold text-blue-900 mb-6 border-b border-slate-100 pb-2">
+                    Resultados Numéricos
+                </h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl text-center">
+                        <h3 class="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
+                            Masa evaluada
+                        </h3>
+                        <p id="masaResultado" class="text-4xl font-bold text-blue-950">
+                            -- g
+                        </p>
+                    </div>
+
+                    <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl text-center">
+                        <h3 class="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">
+                            Saturación máxima
+                        </h3>
+                        <p id="saturacionResultado" class="text-4xl font-bold text-blue-950">
+                            -- g
+                        </p>
+                    </div>
                 </div>
+            </section>
+        </aside>
 
-                <div class="flex flex-col gap-2">
-                    <label for="vidaMedia" class="font-semibold text-sm text-slate-700">Vida media (días)</label>
-                    <input type="number" id="vidaMedia" step="0.01" value="8.02" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
-                </div>
+        <!-- DERECHA - 60% DINÁMICO -->
+        <section class="lg:col-span-7 flex flex-col gap-4">
 
-                <div class="flex flex-col gap-2">
-                    <label for="cantidadInicial" class="font-semibold text-sm text-slate-700">Cantidad inicial Q(0) (gramos)</label>
-                    <input type="number" id="cantidadInicial" step="0.1" value="0" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
-                </div>
+            <!-- BOTONES MOSTRAR / OCULTAR -->
+            <div class="bg-white rounded-2xl p-3 shadow border border-slate-100 flex gap-3">
 
-                <div class="flex flex-col gap-2">
-                    <label for="diasSimulacion" class="font-semibold text-sm text-slate-700">Tiempo total simulación (días)</label>
-                    <input type="number" id="diasSimulacion" step="1" value="80" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
-                </div>
-
-                <div class="flex flex-col gap-2">
-                    <label for="diaEvaluacion" class="font-semibold text-sm text-slate-700">Día específico de evaluación</label>
-                    <input type="number" id="diaEvaluacion" step="0.1" value="24" class="w-full p-3 rounded-xl border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none">
-                </div>
-
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg shadow-blue-500/30 transition-all active:scale-95">
-                    Ejecutar simulación
+                <button id="btnMotor"
+                    class="tab-button flex-1 bg-blue-600 text-white px-4 py-3 rounded-xl font-semibold transition">
+                    Resolver ecuación
                 </button>
-            </form>
-        </section>
 
-        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/5 border border-slate-100">
-            <h2 class="text-xl font-bold text-blue-900 mb-6 border-b border-slate-100 pb-2">Resultados Numéricos</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl text-center">
-                    <h3 class="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">Masa evaluada</h3>
-                    <p id="masaResultado" class="text-4xl font-bold text-blue-950">-- g</p>
-                </div>
-                <div class="bg-blue-50 border border-blue-100 p-6 rounded-2xl text-center">
-                    <h3 class="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">Saturación máxima</h3>
-                    <p id="saturacionResultado" class="text-4xl font-bold text-blue-950">-- g</p>
-                </div>
+                <button id="btnGraficas"
+                    class="tab-button flex-1 bg-slate-100 hover:bg-slate-200 px-4 py-3 rounded-xl font-semibold transition">
+                    Ver gráficas
+                </button>
             </div>
-        </section>
 
-        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/5 border border-slate-100">
-            <h2 class="text-xl font-bold text-blue-900 mb-6 border-b border-slate-100 pb-2">Fase 2: Resultados del Motor Matemático (Factor Integrante)</h2>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                
-                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
-                    <h4 class="font-semibold text-slate-700 mb-3">Paso 1: Ecuación Diferencial en Forma Estándar</h4>
-                    <div class="space-y-2">
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Simbólica:</span><div id="p1_simb"></div></div>
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Con valores:</span><div id="p1_num"></div></div>
+            <!-- SECTION 3 -->
+            <section id="panelMotor"
+                class="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/5 border border-slate-100">
+
+                <h2 class="text-xl font-bold text-blue-900 mb-6 border-b border-slate-100 pb-2">
+                    Fase 2: Resultados del Motor Matemático
+                </h2>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+                    <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                        <h4 class="font-semibold text-slate-700 mb-3">Paso 1: Ecuación Diferencial en Forma Estándar
+                        </h4>
+                        <div class="space-y-2">
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Simbólica:</span>
+                                <div id="p1_simb"></div>
+                            </div>
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Con valores:</span>
+                                <div id="p1_num"></div>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                        <h4 class="font-semibold text-slate-700 mb-3">Paso 2: Cálculo del Factor Integrante μ(t)
+                        </h4>
+                        <div class="space-y-2">
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Simbólica:</span>
+                                <div id="p2_simb"></div>
+                            </div>
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Con valores:</span>
+                                <div id="p2_num"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                        <h4 class="font-semibold text-slate-700 mb-3">Paso 3: Multiplicación y Simplificación</h4>
+                        <div class="space-y-2">
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Simbólica:</span>
+                                <div id="p3_simb"></div>
+                            </div>
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Con valores:</span>
+                                <div id="p3_num"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                        <h4 class="font-semibold text-slate-700 mb-3">Paso 4: Integración y Solución General</h4>
+                        <div class="space-y-2">
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Simbólica:</span>
+                                <div id="p4_simb"></div>
+                            </div>
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Con valores:</span>
+                                <div id="p4_num"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                        <h4 class="font-semibold text-slate-700 mb-3">Paso 5: Solución Particular</h4>
+                        <div class="space-y-2">
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Simbólica:</span>
+                                <div id="p5_simb"></div>
+                            </div>
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Valor de C:</span>
+                                <div id="p5_c"></div>
+                            </div>
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Fórmula Final:</span>
+                                <div id="p5_num"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
+                        <h4 class="font-semibold text-slate-700 mb-3">Paso 6: Límite Asintótico t -> ∞</h4>
+                        <div class="space-y-2">
+                            <div
+                                class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto">
+                                <span class="text-xs text-slate-500 italic mb-1">Simbólica:</span>
+                                <div id="p6_simb"></div>
+                            </div>
+                            <div class="flex flex-col bg-blue-50 p-3 rounded-lg border border-blue-200 overflow-x-auto">
+                                <span class="text-xs text-blue-600 italic mb-1">Con valores:</span>
+                                <div id="p6_num"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SECTION 4 -->
+            <section id="panelGraficas"
+                class="hidden bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/5 border border-slate-100">
+
+                <h2 class="text-xl font-bold text-blue-900 mb-6 border-b border-slate-100 pb-2">
+                    Visualización Dinámica
+                </h2>
+
+                <!-- BOTONES MOSTRAR / OCULTAR -->
+                <div class="flex gap-3 mb-6">
+
+                    <button id="btn2D"
+                        class="flex-1 bg-blue-600 text-white px-4 py-3 rounded-xl font-semibold transition">
+                        Ver gráfica 2D
+                    </button>
+
+                    <button id="btn3D"
+                        class="flex-1 bg-slate-100 hover:bg-slate-200 px-4 py-3 rounded-xl font-semibold transition">
+                        Ver gráfica 3D
+                    </button>
+
                 </div>
 
-                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
-                    <h4 class="font-semibold text-slate-700 mb-3">Paso 2: Cálculo del Factor Integrante \(\mu(t)\)</h4>
-                    <div class="space-y-2">
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Simbólica:</span><div id="p2_simb"></div></div>
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Con valores:</span><div id="p2_num"></div></div>
+                <!-- CONTENEDOR DE GRÁFICAS -->
+                <div class="relative">
+
+                    <!-- 2D -->
+                    <div id="container2D" class="w-full transition-all duration-300">
+
+                        <div id="plot2dCanvas"
+                            class="w-full h-[600px] bg-slate-50 rounded-xl border border-slate-100">
+                        </div>
+
                     </div>
+
+                    <!-- 3D -->
+                    <div id="container3D" class="hidden w-full transition-all duration-300">
+
+                        <div id="plot3dCanvas"
+                            class="w-full h-[600px] bg-slate-50 rounded-xl border border-slate-100">
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
-                    <h4 class="font-semibold text-slate-700 mb-3">Paso 3: Multiplicación y Simplificación</h4>
-                    <div class="space-y-2">
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Simbólica:</span><div id="p3_simb"></div></div>
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Con valores:</span><div id="p3_num"></div></div>
-                    </div>
-                </div>
+            </section>
 
-                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
-                    <h4 class="font-semibold text-slate-700 mb-3">Paso 4: Integración y Solución General</h4>
-                    <div class="space-y-2">
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Simbólica:</span><div id="p4_simb"></div></div>
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Con valores:</span><div id="p4_num"></div></div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
-                    <h4 class="font-semibold text-slate-700 mb-3">Paso 5: Solución Particular</h4>
-                    <div class="space-y-2">
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Simbólica:</span><div id="p5_simb"></div></div>
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Valor de C:</span><div id="p5_c"></div></div>
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Fórmula Final:</span><div id="p5_num"></div></div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between">
-                    <h4 class="font-semibold text-slate-700 mb-3">Paso 6: Límite Asintótico (\(t \to \infty\))</h4>
-                    <div class="space-y-2">
-                        <div class="flex flex-col bg-white p-3 rounded-lg border border-dashed border-slate-300 overflow-x-auto"><span class="text-xs text-slate-500 italic mb-1">Simbólica:</span><div id="p6_simb"></div></div>
-                        <div class="flex flex-col bg-blue-50 p-3 rounded-lg border border-blue-200 overflow-x-auto"><span class="text-xs text-blue-600 italic mb-1">Con valores:</span><div id="p6_num"></div></div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-blue-900/5 border border-slate-100">
-            <h2 class="text-xl font-bold text-blue-900 mb-6 border-b border-slate-100 pb-2">Visualización Dinámica</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div id="plot2dCanvas" class="w-full min-h-[400px] bg-slate-50 rounded-xl border border-slate-100"></div>
-                <div id="plot3dCanvas" class="w-full min-h-[400px] bg-slate-50 rounded-xl border border-slate-100"></div>
-            </div>
         </section>
 
     </main>
 
     <script src="js/app.js"></script>
+    <script src="js//ui/interactions.js"></script>
+
 </body>
+
 </html>
